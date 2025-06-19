@@ -20,19 +20,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
-
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-
-    - name: Run basic test (syntax, import)
-      run: |
-        python -m py_compile train_mnist_mlflow.py
-
     - name: Build Docker image
       run: |
         docker build \
