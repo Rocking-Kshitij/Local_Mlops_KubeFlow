@@ -14,13 +14,16 @@ ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 # Set working directory
 WORKDIR /app
 
+COPY requirements1.txt .
+RUN pip install --no-cache-dir -r requirements1.txt
+
 RUN apt-get update && apt-get install -y git
 
 # Copy code and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements2.txt .
+RUN pip install --no-cache-dir -r requirements2.txt
 
 COPY train_mnist_mlflow.py .
 
 # Set default command
-CMD ["python", "train_mnist_mlflow.py"]                                                                                                             ~                                                                                                                   ~                                                     
+CMD python train_mnist_mlflow.py
