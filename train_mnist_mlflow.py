@@ -35,7 +35,7 @@ class SimpleCNN(nn.Module):
     def forward(self, x):
         return self.net(x)
 
-# 🔁 Training Function
+# 🔁 Training_Function
 def train_model(epochs=3, lr=0.01, batch_size=64):
     transform = transforms.Compose([transforms.ToTensor()])
     train_data = datasets.MNIST('./data', train=True, download=True, transform=transform)
