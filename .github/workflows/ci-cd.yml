@@ -1,0 +1,48 @@
+name: CI-CD-Pipeline
+
+on:
+  push:
+    branches: [ "feature/MLFlow_retraining" ]
+  pull_request:
+    branches: [ "feature/MLFlow_retraining" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run basic test (syntax, import)
+      run: |
+        python -m py_compile train_mnist_mlflow.py
+
+    - name: Build Docker image
+      run: |
+        docker build \
+        --build-arg MLFLOW_TRACKING_URI = ${{ secrets.MLFLOW_TRACKING_URI }} \
+        --build-arg MLFLOW_S3_ENDPOINT_URL = ${{ MLFLOW_S3_ENDPOINT_URL }}\
+        --build-arg AWS_ACCESS_KEY_ID = ${{ AWS_ACCESS_KEY_ID }}\
+        --build-arg AWS_SECRET_ACCESS_KEY = ${{ AWS_SECRET_ACCESS_KEY }}\
+        -t mnist-train-mlflow:latest .
+
+    # - name: Login to DockerHub
+    #   if: secrets.DOCKERHUB_USERNAME != ''
+    #   run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+    # - name: Push image to DockerHub
+    #   if: secrets.DOCKERHUB_USERNAME != ''
+    #   run: |
+    #     docker tag mnist-train-mlflow:latest ${{ secrets.DOCKERHUB_USERNAME }}/mnist-train-mlflow:latest
+    #     docker push ${{ secrets.DOCKERHUB_USERNAME }}/mnist-train-mlflow:latest
+
