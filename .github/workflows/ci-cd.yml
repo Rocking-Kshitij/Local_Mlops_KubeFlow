@@ -36,10 +36,10 @@ jobs:
     - name: Build Docker image
       run: |
         docker build \
-        --build-arg MLFLOW_TRACKING_URI = $MLFLOW_TRACKING_URI \
-        --build-arg MLFLOW_S3_ENDPOINT_URL = $MLFLOW_S3_ENDPOINT_URL\
-        --build-arg AWS_ACCESS_KEY_ID = $AWS_ACCESS_KEY_ID\
-        --build-arg AWS_SECRET_ACCESS_KEY = $AWS_SECRET_ACCESS_KEY\
+        --build-arg MLFLOW_TRACKING_URI=$MLFLOW_TRACKING_URI \
+        --build-arg MLFLOW_S3_ENDPOINT_URL=$MLFLOW_S3_ENDPOINT_URL\
+        --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID\
+        --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY\
         -t mnist-train-mlflow:latest .
 
     # - name: Login to DockerHub
