@@ -3,7 +3,7 @@ from airflow import DAG
 from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
 from datetime import datetime
 
-with DAG(dag_id="train_model_on_k8s",
+with DAG(dag_id="train_model_on_k8s_mlflow_ns",
          start_date=datetime(2024, 1, 1),
          schedule_interval=None,
          catchup=False) as dag:
