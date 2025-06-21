@@ -12,7 +12,7 @@ with DAG(dag_id="train_model_on_k8s",
         name="train-model",
         namespace="airflow",
         image="mnist-train-mlflow:latest",
-        is_delete_operator_pod=False,   # For now, don’t delete so we can inspect the pod
+        is_delete_operator_pod=True,
         get_logs=True,
         image_pull_policy="Never"
 )
