@@ -1,0 +1,30 @@
+executor: KubernetesExecutor
+
+defaultAirflowRepository: apache/airflow
+airflow:
+  image:
+    tag: 2.10.5
+
+createUserJob:
+  useHelmHooks: false
+
+webserver:
+  startupProbe:
+    failureThreshold: 30
+    periodSeconds: 30
+
+# DAGs persistence + GitSync
+dags:
+  persistence:
+    enabled: false
+  gitSync:
+    enabled: true
+    repo: https://github.com/Rocking-Kshitij/Local_Mlops_KubeFlow.git
+    branch: airflow
+    subPath: dags
+    wait: 30
+    credentialsSecret: airflow-git-creds
+
+config:
+  kubernetes:
+    multi_namespace_mode: true
