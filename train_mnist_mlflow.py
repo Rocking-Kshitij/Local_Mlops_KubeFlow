@@ -20,7 +20,7 @@ os.environ['MLFLOW_S3_ENDPOINT_URL'] = os.getenv("MLFLOW_S3_ENDPOINT_URL")
 tracking_uri = os.getenv("MLFLOW_TRACKING_URI")
 
 
-# 🧠 Model Architecture
+# Model Architecture
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
