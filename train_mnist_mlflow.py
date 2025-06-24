@@ -45,7 +45,7 @@ def train_model(epochs=3, lr=0.01, batch_size=64):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    # 🎯 Set MLFlow experiment
+    # Set MLFlow experiment
     mlflow.set_tracking_uri(tracking_uri)
     mlflow.set_experiment("MNIST-Classifier")
 
