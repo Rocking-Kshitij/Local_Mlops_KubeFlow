@@ -4,7 +4,7 @@ from datetime import datetime
 
 with DAG(dag_id="train_model_on_k8s",
          start_date=datetime(2024, 1, 1),
-         schedule_interval=None,
+         schedule=None,
          catchup=False) as dag:
 
     train_model = KubernetesPodOperator(
