@@ -1,5 +1,11 @@
-# Base image with Python
 FROM python:3.12-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y git
+
+COPY requirements1.txt .
+RUN pip install --no-cache-dir -r requirements1.txt
 
 ARG MLFLOW_TRACKING_URI
 ARG MLFLOW_S3_ENDPOINT_URL
@@ -10,14 +16,6 @@ ENV MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI}
 ENV MLFLOW_S3_ENDPOINT_URL=${MLFLOW_S3_ENDPOINT_URL}
 ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
 ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-
-# Set working directory
-WORKDIR /app
-
-COPY requirements1.txt .
-RUN pip install --no-cache-dir -r requirements1.txt
-
-RUN apt-get update && apt-get install -y git
 
 # Copy code and install dependencies
 COPY requirements2.txt .
